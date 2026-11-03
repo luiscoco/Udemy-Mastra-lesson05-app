@@ -97,5 +97,36 @@ export const LESSON = {
       "title": "Generation settings",
       "url": "https://mastra.ai/reference/agents/generate"
     }
+  ],
+  "readmeWorkflow": [
+    {
+      "step": "Validate settings",
+      "component": "src/lab.ts",
+      "behavior": "Check provider enum, model route, output-token bounds and optional temperature."
+    },
+    {
+      "step": "Compare provider route",
+      "component": "src/lab.ts",
+      "behavior": "Require the provider field to agree with the provider/model prefix."
+    },
+    {
+      "step": "Construct Agent",
+      "component": "src/mastra/agents.ts",
+      "behavior": "Construct an actual agent only for a valid route."
+    },
+    {
+      "step": "Report readiness",
+      "component": "src/lab.ts",
+      "behavior": "Expose credential presence and the exact settings without making a provider call."
+    }
+  ],
+  "liveWorkflow": [
+    "The candidate configuration is checked again; mismatch blocks generation.",
+    "The agent uses the selected model, maxOutputTokens and optional temperature in a real generate() call."
+  ],
+  "outcomeNotes": [
+    "A provider/model mismatch produces Needs attention and no agent construction.",
+    "Local validity does not verify account access or model-specific parameter support.",
+    "No price, benchmark or cross-model quality claim is made."
   ]
 } satisfies LessonMetadata;
